@@ -1,3 +1,6 @@
+from langchain.prompts import PromptTemplate
+from models import get_llm_model
+
 PROMPT_TEMPLATE = """
 CONTEXTO:
 {contexto}
@@ -25,5 +28,9 @@ PERGUNTA DO USUÁRIO:
 RESPONDA A "PERGUNTA DO USUÁRIO"
 """
 
-def search_prompt(question=None):
-    pass
+def search_prompt():
+    prompt_template = PromptTemplate(template=PROMPT_TEMPLATE, input_variables=['contexto', 'pergunta'])
+
+    llm = get_llm_model()
+
+    return prompt_template | llm
